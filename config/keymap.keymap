@@ -15,70 +15,94 @@
         };
     };
 
+    macros {
+        ctrl_space_l0: ctrl_space_l0 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(SPACE)>, <&to 0>;
+        };
+
+        en: en_kp {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings =
+                <&macro_tap &kp LANG2>,
+                <&macro_param_1to1 &macro_press &kp MACRO_PLACEHOLDER>,
+                <&macro_pause_for_release>,
+                <&macro_param_1to1 &macro_release &kp MACRO_PLACEHOLDER>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         layer_0 {
             bindings = <
-&kp TAB    &kp Q       &kp W             &kp E     &kp R             &kp T  &kp Y      &kp U      &kp I  &kp O           &kp P           &kp BSPC
-&mo 5      &kp A       &kp S             &kp D     &kp F             &kp G  &kp H      &kp J      &kp K  &kp L           &kp MINUS       &kp ENTER
-&kp LSHFT  &kp Z       &kp X             &kp C     &kp V             &kp B  &kp SPACE  &kp SPACE  &kp N  &kp M           &kp COMMA       &kp DOT          &kp UP_ARROW  &mt RSHFT QUESTION
-&mo 2      &kp ESCAPE  &kp LEFT_CONTROL  &kp LALT  &kp LEFT_COMMAND  &mo 2  &kp SPACE  &kp SPACE  &mo 3  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&kp TAB           &kp Q  &kp W     &kp E             &kp R      &kp T  &kp Y          &kp U      &kp I  &kp O           &kp P           &kp BSPC
+&kp LEFT_CONTROL  &kp A  &kp S     &kp D             &kp F      &kp G  &kp H          &kp J      &kp K  &kp L           &kp SEMICOLON   &kp ENTER
+&kp LSHFT         &kp Z  &kp X     &kp C             &kp V      &kp B  &mo 1          &kp SPACE  &kp N  &kp M           &kp COMMA       &kp DOT          &kp UP_ARROW  &kp QUESTION
+&kp ESCAPE        &mo 3  &kp LALT  &kp LEFT_COMMAND  &kp SPACE  &mo 2  &kp LC(SPACE)  &kp SPACE  &mo 2  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
         };
 
         layer_1 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                &mkp LCLK  &mo 4             &mkp RCLK  &trans                 &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &kp RG(LEFT_BRACKET)  &mkp MB1   &mkp MB3          &mkp MB2   &kp RG(RIGHT_BRACKET)  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                &trans     &kp LC(UP_ARROW)  &trans     &trans                 &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans                &trans     &trans            &trans     &trans                 &trans
+&none             &none  &none     &none             &none  &none  &none                 &none     &none             &none                  &none  &none
+&kp LEFT_CONTROL  &none  &none     &none             &none  &none  &kp LG(LEFT_BRACKET)  &mkp MB1  &mkp RCLK         &kp LG(RIGHT_BRACKET)  &none  &none
+&kp LSHFT         &none  &none     &none             &none  &none  &none                 &none     &kp LC(UP_ARROW)  &none                  &none  &none  &none  &none
+&none             &none  &kp LALT  &kp LEFT_COMMAND  &none  &none  &ctrl_space_l0        &none     &none             &none                  &none  &none
             >;
         };
 
         layer_2 {
             bindings = <
-&kp ESCAPE  &kp N1    &kp N2  &kp N3    &kp N4      &kp N5     &kp N6     &kp N7         &kp N8     &kp N9                &kp N0                 &kp DELETE
-&trans      &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT  &kp CARET  &kp AMPERSAND  &kp ASTRK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &trans
-&trans      &trans    &trans  &trans    &trans      &trans     &trans     &trans         &kp TILDE  &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp SLASH
-&trans      &trans    &trans  &trans    &trans      &trans     &trans     &trans         &trans     &trans                &trans                 &trans
+&kp TAB           &kp N1    &kp N2    &kp N3            &kp N4      &kp N5     &kp N6     &kp N7         &kp N8     &kp N9                &kp N0                 &kp BSPC
+&kp LEFT_CONTROL  &en EXCL  &en AT    &en HASH          &en DOLLAR  &en PRCNT  &en CARET  &en AMPERSAND  &en ASTRK  &en LEFT_PARENTHESIS  &en RIGHT_PARENTHESIS  &kp ENTER
+&kp LSHFT         &none     &none     &none             &none       &none      &none      &none          &en TILDE  &en LEFT_BRACE        &en RIGHT_BRACE        &en LEFT_BRACKET  &en RIGHT_BRACKET  &en SLASH
+&kp ESCAPE        &none     &kp LALT  &kp LEFT_COMMAND  &none       &none      &none      &none          &none      &none                 &none                  &none
             >;
         };
 
         layer_3 {
             bindings = <
-&trans        &kp F1        &kp F2        &kp F3        &kp F4        &kp F5      &trans          &kp FSLH  &kp ASTRK  &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9
-&trans        &kp F6        &kp F7        &kp F8        &kp F9        &kp F10     &kp HOME        &trans    &kp MINUS  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6
-&trans        &kp F11       &kp F12       &out OUT_USB  &out OUT_BLE  &bt BT_NXT  &bt BT_CLR_ALL  &trans    &kp END    &trans           &kp GRAVE        &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans      &trans          &trans    &trans     &kp KP_NUMBER_0  &kp DOT          &kp EQUAL
+&none             &kp F1        &kp F2        &kp F3        &kp F4        &kp F5      &none           &en FSLH  &en ASTRK  &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9
+&kp LEFT_CONTROL  &kp F6        &kp F7        &kp F8        &kp F9        &kp F10     &kp HOME        &none     &en MINUS  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6
+&kp LSHFT         &kp F11       &kp F12       &out OUT_USB  &out OUT_BLE  &bt BT_NXT  &bt BT_CLR_ALL  &none     &kp END    &none            &en GRAVE        &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3
+&bt BT_SEL 0      &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &none       &none           &none     &none      &kp KP_NUMBER_0  &en DOT          &en EQUAL
             >;
         };
 
         layer_4 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
             >;
         };
 
         layer_5 {
             bindings = <
 &kp ESC  &kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6  &kp F7  &kp F8  &kp F9  &kp F10  &kp F12
-&trans   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans   &trans
-&trans   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans   &trans   &trans  &trans
-&trans   &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans   &trans
+&none    &none   &none   &none   &none   &none   &none   &none   &none   &none   &none    &none
+&none    &none   &none   &none   &none   &none   &none   &none   &none   &none   &none    &none    &none  &none
+&none    &none   &none   &none   &none   &none   &none   &none   &none   &none   &none    &none
             >;
         };
 
         layer_6 {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
+&none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none
             >;
         };
     };
+};
+
+&zip_temp_layer {
+    require-prior-idle-ms = <300>;
 };
