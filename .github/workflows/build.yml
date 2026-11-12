@@ -2,7 +2,8 @@ name: Build ZMK firmware
 
 on:
   push:
-  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
