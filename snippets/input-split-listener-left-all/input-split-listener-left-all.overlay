@@ -63,6 +63,12 @@
                 <&hscroll_boost 3 1>;
             process-next;
         };
+
+        fast {
+            layers = <4>;
+            input-processors = <&zip_xy_scaler 4 3>;
+            process-next;
+        };
     };
 
     left_trackball_paw3222_listener: left_trackball_paw3222_listener {
