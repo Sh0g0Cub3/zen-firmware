@@ -70,6 +70,16 @@
         track-remainders;
     };
 
+    /* macOS scrolls horizontally much slower than vertically for the same
+     * report values, so horizontal scroll gets an extra multiplier. */
+    hscroll_boost: hscroll_boost {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_HWHEEL>;
+        track-remainders;
+    };
+
     pointing_listener: pointing_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
