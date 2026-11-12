@@ -74,10 +74,10 @@
 
         layer_2 {
             bindings = <
-&en GRAVE         &en N1   &en N2    &en N3            &en N4    &en N5          &en N6     &en N7          &en N8           &en N9            &en N0             &kp BSPC
-&kp LEFT_CONTROL  &en SQT  &en DQT   &en BACKSLASH     &en PIPE  &en UNDERSCORE  &en TILDE  &en LEFT_BRACE  &en RIGHT_BRACE  &en LEFT_BRACKET  &en RIGHT_BRACKET  &kp ENTER
-&kp LSHFT         &none    &none     &none             &none     &none           &en MINUS  &en PLUS        &none            &none             &none              &none      &none  &en SLASH
-&kp ESCAPE        &none    &kp LALT  &kp LEFT_COMMAND  &none     &none           &none      &en EQUAL       &none            &none             &none              &none
+&en GRAVE         &en N1   &en N2    &en N3            &en N4    &en N5          &en N6     &en N7          &en N8             &en N9                    &en N0             &kp BSPC
+&kp LEFT_CONTROL  &en SQT  &en DQT   &en BACKSLASH     &en PIPE  &en UNDERSCORE  &en TILDE  &en LEFT_BRACE  &en RIGHT_BRACE    &en LEFT_BRACKET          &en RIGHT_BRACKET  &kp ENTER
+&kp LSHFT         &none    &none     &none             &none     &none           &en MINUS  &en PLUS        &kp C_VOLUME_DOWN  &kp LC(LG(LEFT_BRACKET))  &kp LC(LG(SPACE))  &kp LC(LG(RIGHT_BRACKET))  &kp C_VOLUME_UP  &en SLASH
+&kp ESCAPE        &none    &kp LALT  &kp LEFT_COMMAND  &none     &none           &kp SPACE  &en EQUAL       &none              &none                     &none              &none
             >;
         };
 
