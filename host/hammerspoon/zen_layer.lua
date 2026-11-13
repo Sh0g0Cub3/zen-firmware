@@ -19,6 +19,18 @@ M.labels = {
     [1] = "MOUSE",
 }
 
+-- レイヤー番号 -> メニューバーの文字色 (hs.drawing.color の形式)。
+-- 未定義のレイヤーは標準の色 (ライト / ダークモードに追従) で表示する。
+-- ライト / ダークのどちらの背景でも読める、彩度の高めの色を選んでいる。
+M.colors = {
+    [1] = { hex = "#30D158" }, -- 緑
+    [2] = { hex = "#0A84FF" }, -- 青
+    [3] = { hex = "#FF9F0A" }, -- オレンジ
+    [4] = { hex = "#FF453A" }, -- 赤
+    [5] = { hex = "#BF5AF2" }, -- 紫
+    [6] = { hex = "#64D2FF" }, -- 水色
+}
+
 -- HUD を出さないレイヤー番号。0 (BASE) は常に出さない。
 -- 例: トラックボールで頻繁に切り替わる自動マウスレイヤーを外す -> { [1] = true }
 M.hudIgnore = {}
@@ -89,8 +101,16 @@ local function showHud(text)
     hud:show()
 end
 
-local function setTitle(text)
-    if menu then menu:setTitle(text) end
+local function setTitle(text, color)
+    if not menu then return end
+    if color then
+        menu:setTitle(hs.styledtext.new(text, {
+            color = color,
+            font = hs.styledtext.defaultFonts.menuBar,
+        }))
+    else
+        menu:setTitle(text)
+    end
 end
 
 local function onMessage(msg)
@@ -104,7 +124,7 @@ local function onMessage(msg)
         end
     elseif msg.event == "layer" then
         local label = labelFor(msg.index, msg.name)
-        setTitle(label)
+        setTitle(label, M.colors[msg.index])
         if msg.index == 0 or M.hudIgnore[msg.index] then
             hideHud()
         else
