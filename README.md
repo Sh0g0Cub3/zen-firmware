@@ -15,6 +15,7 @@ GitHubに慣れていない方でも、リポジトリをforkして、Keymap Edi
 - ZEN用ファームウェアのビルド
 - Keymap Editorでのキー配置編集
 - GitHub ActionsからのUF2ファイル作成
+- 現在のレイヤーをMacに表示([docs/layer-indicator.md](docs/layer-indicator.md))
 
 ## 作成されるファームウェア
 
