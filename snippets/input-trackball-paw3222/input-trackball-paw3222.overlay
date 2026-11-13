@@ -21,8 +21,8 @@
     scroller {
         layers = <2>;
         input-processors =
+            <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>,
-            <&hscroll_boost 5 1>,
             <&scroll_scaler 1 28>;
         process-next;
     };

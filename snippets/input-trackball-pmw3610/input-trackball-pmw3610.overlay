@@ -42,8 +42,8 @@
         layers = <2>;
         input-processors =
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>,
+            <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>,
-            <&hscroll_boost 5 1>,
             <&pmw3610_scroll_scaler 1 30>;
         process-next;
     };
