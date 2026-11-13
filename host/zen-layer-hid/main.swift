@@ -35,6 +35,13 @@ func describe(_ device: IOHIDDevice) -> [String: Any] {
     return ["transport": transport, "product": name]
 }
 
+// IOHIDManager does not reliably honor kIOHIDProductKey in the matching
+// dictionary (other QMK/ZMK Raw HID devices show up too), so check it here.
+func isTarget(_ device: IOHIDDevice) -> Bool {
+    product.isEmpty
+        || (IOHIDDeviceGetProperty(device, kIOHIDProductKey as CFString) as? String) == product
+}
+
 // Ask the keyboard for its current layer instead of waiting for a change.
 func requestLayer(_ device: IOHIDDevice) {
     var report = [UInt8](repeating: 0, count: reportSize)
@@ -57,6 +64,7 @@ if !product.isEmpty {
 IOHIDManagerSetDeviceMatching(manager, matching as CFDictionary)
 
 IOHIDManagerRegisterDeviceMatchingCallback(manager, { _, _, _, device in
+    guard isTarget(device) else { return }
     var info = describe(device)
     info["event"] = "connected"
     emit(info)
@@ -66,17 +74,20 @@ IOHIDManagerRegisterDeviceMatchingCallback(manager, { _, _, _, device in
 }, nil)
 
 IOHIDManagerRegisterDeviceRemovalCallback(manager, { _, _, _, device in
+    guard isTarget(device) else { return }
     var info = describe(device)
     info["event"] = "disconnected"
     emit(info)
 }, nil)
 
-IOHIDManagerRegisterInputReportCallback(manager, { _, _, _, _, _, report, length in
+IOHIDManagerRegisterInputReportCallback(manager, { _, _, sender, _, _, report, length in
+    guard let sender,
+          isTarget(Unmanaged<IOHIDDevice>.fromOpaque(sender).takeUnretainedValue()) else { return }
     // [0] magic, [1] version, [2] index, [3] id, [4..7] state (LE), [8..] name
     guard length >= 9, report[0] == magic, report[1] == 1 else { return }
     let state = UInt32(report[4]) | UInt32(report[5]) << 8 | UInt32(report[6]) << 16
         | UInt32(report[7]) << 24
-    let nameEnd = (8..<length).first(where: { report[$0] == 0 }) ?? length
+    let nameEnd: Int = (8..<length).first(where: { report[$0] == 0 }) ?? length
     let nameBytes = UnsafeBufferPointer(start: report + 8, count: nameEnd - 8)
     emit([
         "event": "layer",
