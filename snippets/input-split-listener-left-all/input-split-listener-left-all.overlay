@@ -58,8 +58,8 @@
             input-processors =
                 <&zip_xy_scaler 1 56>,
                 <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
+                <&zip_x_scaler 0 1>,
                 <&zip_xy_to_scroll_mapper>,
-                <&hscroll_boost 5 1>,
                 <&left_pmw3610_scroll_scaler 1 30>;
             process-next;
         };
@@ -83,8 +83,8 @@
             layers = <2>;
             input-processors =
                 <&zip_xy_scaler 1 56>,
+                <&zip_x_scaler 0 1>,
                 <&zip_xy_to_scroll_mapper>,
-                <&hscroll_boost 5 1>,
                 <&left_paw3222_scroll_scaler 1 28>;
             process-next;
         };
@@ -103,8 +103,8 @@
             input-processors =
                 <&zip_xy_scaler 1 960>,
                 <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
+                <&zip_x_scaler 0 1>,
                 <&zip_xy_to_scroll_mapper>,
-                <&hscroll_boost 5 1>,
                 <&left_trackpad_scroll_scaler 1 28>;
             process-next;
         };
