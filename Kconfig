@@ -196,3 +196,23 @@ config IQS7211E_SCROLLER_INERTIA_STOP_THRESHOLD_Q8
       Q8 means 256 equals 1 wheel unit per 10ms.
 
 endif
+
+config ZEN_LAYER_REPORT
+    bool "Report the active layer to the host over Raw HID"
+    default y
+    depends on RAW_HID
+    help
+      Sends the highest active layer and its name to the host whenever the
+      layer state changes. See src/layer_report.c for the report layout.
+
+if ZEN_LAYER_REPORT
+
+config ZEN_LAYER_REPORT_STACK_SIZE
+    int "Layer report work queue stack size"
+    default 1024
+
+config ZEN_LAYER_REPORT_THREAD_PRIORITY
+    int "Layer report work queue thread priority"
+    default 10
+
+endif
