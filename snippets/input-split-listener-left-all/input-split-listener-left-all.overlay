@@ -59,8 +59,8 @@
                 <&zip_xy_scaler 1 56>,
                 <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
                 <&zip_xy_to_scroll_mapper>,
-                <&left_pmw3610_scroll_scaler 1 30>,
-                <&hscroll_boost 3 1>;
+                <&hscroll_boost 5 1>,
+                <&left_pmw3610_scroll_scaler 1 30>;
             process-next;
         };
 
@@ -84,8 +84,8 @@
             input-processors =
                 <&zip_xy_scaler 1 56>,
                 <&zip_xy_to_scroll_mapper>,
-                <&left_paw3222_scroll_scaler 1 28>,
-                <&hscroll_boost 3 1>;
+                <&hscroll_boost 5 1>,
+                <&left_paw3222_scroll_scaler 1 28>;
             process-next;
         };
     };
@@ -104,8 +104,8 @@
                 <&zip_xy_scaler 1 960>,
                 <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
                 <&zip_xy_to_scroll_mapper>,
-                <&left_trackpad_scroll_scaler 1 28>,
-                <&hscroll_boost 3 1>;
+                <&hscroll_boost 5 1>,
+                <&left_trackpad_scroll_scaler 1 28>;
             process-next;
         };
     };
