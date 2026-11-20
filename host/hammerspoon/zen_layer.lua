@@ -169,7 +169,9 @@ end
 function M.start()
     if not stopped then return M end
     stopped = false
-    menu = hs.menubar.new()
+    -- autosaveName lets macOS remember the item's position across reloads,
+    -- so menu bar managers (Ice, Bartender) keep it in the visible section.
+    menu = hs.menubar.new(true, "zen_layer")
     launch()
     return M
 end
