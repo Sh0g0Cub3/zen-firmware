@@ -28,7 +28,13 @@
 
         code_fence {
             bindings = <&tgrv>;
-            key-positions = <0 1>;
+            key-positions = <16 17>;
+            layers = <0>;
+        };
+
+        tilde {
+            bindings = <&kp TILDE>;
+            key-positions = <18 19>;
             layers = <0>;
         };
     };
