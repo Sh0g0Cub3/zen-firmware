@@ -11,7 +11,7 @@
         rcmd {
             bindings = <&kp RIGHT_COMMAND>;
             key-positions = <34 35>;
-            layers = <0>;
+            layers = <0 1>;
         };
 
         choon {
